@@ -16,7 +16,6 @@ export const SONG_LIST: SongGenre[] = [
       { title: 'My Girl', artist: 'The Temptations' },
       { title: 'Stand by Me', artist: 'Ben E. King' },
       { title: 'Tennessee Whiskey', artist: 'Chris Stapleton' },
-      { title: 'Water', artist: 'Tyla' },
     ],
   },
   {
@@ -114,6 +113,7 @@ export const SONG_LIST: SongGenre[] = [
       { title: 'Taste', artist: 'Sabrina Carpenter' },
       { title: 'The Fate of Ophelia', artist: 'Taylor Swift' },
       { title: 'This Love', artist: 'Maroon 5' },
+      { title: 'Water', artist: 'Tyla' },
       { title: 'Wild Ones', artist: 'Flo Rida ft. Sia' },
     ],
   },
