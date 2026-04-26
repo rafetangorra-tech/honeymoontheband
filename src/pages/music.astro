@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import InstagramEmbed from '~/components/InstagramEmbed.astro';
 import { SITE } from '~/data/site';
 import { FEATURED_REELS } from '~/data/featured-reels';
 
@@ -72,34 +73,12 @@ const jsonLd = {
   <section class="container-narrow pb-16">
     <p class="eyebrow">Featured reels</p>
     <h2 class="mt-3 text-2xl md:text-3xl font-bold">From recent shows.</h2>
-    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <p class="mt-3 text-sm text-espresso/60 max-w-xl">
+      Reels load from Instagram. If they take a moment, give it a beat — or click through to view directly.
+    </p>
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
       {FEATURED_REELS.map(reel => (
-        <div class="bg-white border border-honey/15 overflow-hidden">
-          <div class="relative w-full" style="aspect-ratio: 9/16;">
-            <iframe
-              src={`https://www.instagram.com/reel/${reel.id}/embed/`}
-              title={`Honeymoon reel ${reel.id}`}
-              loading="lazy"
-              allowtransparency="true"
-              allowfullscreen
-              scrolling="no"
-              referrerpolicy="no-referrer-when-downgrade"
-              class="absolute inset-0 w-full h-full"
-              style="border: 0;"
-            ></iframe>
-          </div>
-          <div class="px-4 py-3 text-xs uppercase tracking-wider text-espresso/60 border-t border-honey/10 flex justify-between items-center">
-            <span>Honeymoon · live</span>
-            <a
-              href={`https://www.instagram.com/reel/${reel.id}/`}
-              target="_blank"
-              rel="noopener"
-              class="text-honey hover:underline underline-offset-4"
-            >
-              Open in IG ↗
-            </a>
-          </div>
-        </div>
+        <InstagramEmbed reelId={reel.id} />
       ))}
     </div>
   </section>
@@ -117,4 +96,6 @@ const jsonLd = {
       </div>
     </div>
   </section>
+
+  <script is:inline async src="https://www.instagram.com/embed.js"></script>
 </BaseLayout>
