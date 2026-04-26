@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { SITE, SERVICE_AREAS, CONFIGURATIONS, bookingMailto } from '~/data/site';
+import { url } from '~/lib/url';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -54,7 +55,7 @@ const jsonLd = {
         ))}
       </ul>
       <p class="mt-6 text-sm text-espresso/70">
-        Travel beyond the Tristate is available — <a href="/booking" class="text-honey hover:underline underline-offset-4">reach out</a> with your venue and date.
+        Travel beyond the Tristate is available — <a href={url('/booking')} class="text-honey hover:underline underline-offset-4">reach out</a> with your venue and date.
       </p>
     </div>
   </section>
@@ -72,7 +73,7 @@ const jsonLd = {
         ))}
       </div>
       <div class="mt-10">
-        <a href="/booking" class="btn btn-ghost">Booking details</a>
+        <a href={url('/booking')} class="btn btn-ghost">Booking details</a>
       </div>
     </div>
   </section>

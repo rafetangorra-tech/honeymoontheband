@@ -3,6 +3,7 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 import MemberCard from '~/components/MemberCard.astro';
 import { getCollection } from 'astro:content';
 import { SITE, SERVICE_AREAS, bookingMailto } from '~/data/site';
+import { url } from '~/lib/url';
 import { SONG_LIST } from '~/data/song-list';
 
 const bios = (await getCollection('bios')).sort((a, b) => a.data.order - b.data.order);
@@ -49,7 +50,7 @@ const jsonLd = {
   <!-- Hero -->
   <section class="bg-espresso text-cream relative overflow-hidden">
     <img
-      src="/img/band.jpg"
+      src={url('/img/band.jpg')}
       alt="Honeymoon the Band"
       class="absolute inset-0 h-full w-full object-cover opacity-30"
     />
@@ -66,7 +67,7 @@ const jsonLd = {
       </p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
         <a href={bookingMailto()} class="btn btn-primary">Book Honeymoon</a>
-        <a href="/song-list" class="btn btn-ghost">See the song list</a>
+        <a href={url('/song-list')} class="btn btn-ghost">See the song list</a>
       </div>
     </div>
   </section>
@@ -80,7 +81,7 @@ const jsonLd = {
       and the ballads that make a first dance. Designed to keep the room moving from the first note to the last.
     </p>
     <div class="mt-8">
-      <a href="/about" class="text-sm font-semibold uppercase tracking-[0.16em] text-honey hover:underline underline-offset-4">
+      <a href={url('/about')} class="text-sm font-semibold uppercase tracking-[0.16em] text-honey hover:underline underline-offset-4">
         About the band →
       </a>
     </div>
@@ -99,7 +100,7 @@ const jsonLd = {
         for reels, recent shows, and behind-the-scenes.
       </p>
       <div class="mt-8">
-        <a href="/music" class="btn btn-ghost">More media</a>
+        <a href={url('/music')} class="btn btn-ghost">More media</a>
       </div>
     </div>
   </section>
@@ -121,7 +122,7 @@ const jsonLd = {
       ))}
     </div>
     <div class="mt-12 text-center">
-      <a href="/band" class="btn btn-ghost">Full roster</a>
+      <a href={url('/band')} class="btn btn-ghost">Full roster</a>
     </div>
   </section>
 
@@ -144,7 +145,7 @@ const jsonLd = {
         ))}
       </div>
       <div class="mt-12 text-center">
-        <a href="/song-list" class="btn btn-primary">Full song list</a>
+        <a href={url('/song-list')} class="btn btn-primary">Full song list</a>
       </div>
     </div>
   </section>
@@ -160,7 +161,7 @@ const jsonLd = {
       <a href={bookingMailto()} class="btn btn-primary">Email {SITE.email}</a>
     </div>
     <p class="mt-4 text-sm text-espresso/60">
-      Or <a href="/booking" class="underline underline-offset-4 decoration-honey hover:text-honey">read booking details</a>.
+      Or <a href={url('/booking')} class="underline underline-offset-4 decoration-honey hover:text-honey">read booking details</a>.
     </p>
   </section>
 </BaseLayout>

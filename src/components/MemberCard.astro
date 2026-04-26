@@ -1,4 +1,6 @@
 ---
+import { url } from '~/lib/url';
+
 interface Props {
   slug: string;
   name: string;
@@ -6,15 +8,17 @@ interface Props {
   teaser?: string;
 }
 const { slug, name, role, teaser } = Astro.props;
+const firstName = slug.split('-')[0];
+const imageFile = firstName === 'alex' ? 'alexandra' : firstName;
 ---
 
 <a
-  href={`/band/${slug}`}
+  href={url(`/band/${slug}`)}
   class="group block bg-white border border-honey/15 hover:border-honey transition-colors"
 >
   <div class="aspect-[4/5] overflow-hidden bg-espresso/5">
     <img
-      src={`/img/members/${slug.split('-')[0]}.jpg`}
+      src={url(`/img/members/${imageFile}.jpg`)}
       alt={`${name}, ${role}`}
       width="400"
       height="500"

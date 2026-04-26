@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { SITE, bookingMailto } from '~/data/site';
+import { url } from '~/lib/url';
 
 export async function getStaticPaths() {
   const bios = await getCollection('bios');
@@ -42,7 +43,7 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <section class="container-narrow pt-12 pb-6">
-    <a href="/band" class="text-sm font-semibold uppercase tracking-[0.16em] text-honey hover:underline underline-offset-4">
+    <a href={url('/band')} class="text-sm font-semibold uppercase tracking-[0.16em] text-honey hover:underline underline-offset-4">
       ← The Band
     </a>
   </section>
@@ -50,7 +51,7 @@ const jsonLd = {
   <article class="container-narrow grid md:grid-cols-[2fr_3fr] gap-10 pb-16">
     <div>
       <div class="aspect-[4/5] bg-espresso/5 overflow-hidden border border-honey/15">
-        <img src={imageURL} alt={`${bio.data.name}, ${bio.data.role}`} class="h-full w-full object-cover object-top" />
+        <img src={url(imageURL)} alt={`${bio.data.name}, ${bio.data.role}`} class="h-full w-full object-cover object-top" />
       </div>
     </div>
     <div>
@@ -71,7 +72,7 @@ const jsonLd = {
       <ul class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
         {others.map(o => (
           <li>
-            <a href={`/band/${o.data.slug}`} class="block group">
+            <a href={url(`/band/${o.data.slug}`)} class="block group">
               <span class="block font-semibold group-hover:text-honey transition-colors">{o.data.name}</span>
               <span class="block text-xs text-espresso/60 uppercase tracking-wider mt-1">{o.data.role}</span>
             </a>
