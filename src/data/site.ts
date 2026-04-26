@@ -1,14 +1,16 @@
-// SITE.url switches based on whether we're deploying to GitHub Pages (subpath)
-// or to the production domain. Astro config flips both in lockstep via USE_BASE_PATH.
+// SITE.url is sourced from PUBLIC_SITE_URL when set (preview / production deploys),
+// otherwise falls back based on whether the build uses the /honeymoontheband/ base path.
 const useBasePath = import.meta.env.BASE_URL !== '/';
+const envSiteUrl = import.meta.env.PUBLIC_SITE_URL as string | undefined;
+const fallbackUrl = useBasePath
+  ? 'https://rafetangorra-tech.github.io/honeymoontheband'
+  : 'https://www.honeymoontheband.com';
 
 export const SITE = {
   name: 'Honeymoon',
   fullName: 'Honeymoon the Band',
   tagline: 'Live wedding & event band — NYC · Long Island · Westchester',
-  url: useBasePath
-    ? 'https://rafetangorra-tech.github.io/honeymoontheband'
-    : 'https://www.honeymoontheband.com',
+  url: envSiteUrl || fallbackUrl,
   email: 'honeymoonbandbookings@gmail.com',
   defaultDescription:
     'Honeymoon is a six-piece live band serving weddings and private events across the New York Tristate Area.',
