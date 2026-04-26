@@ -1,9 +1,9 @@
 ---
-import { bookingMailto } from '~/data/site';
+import { url } from '~/lib/url';
 ---
 
 <a
-  href={bookingMailto()}
+  href={url('/booking')}
   class="md:hidden fixed right-4 z-40 btn btn-primary shadow-lg shadow-espresso/30"
   style="bottom: max(1rem, env(safe-area-inset-bottom));"
 >

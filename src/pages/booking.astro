@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { SITE, SERVICE_AREAS, CONFIGURATIONS, bookingMailto } from '~/data/site';
+import { url } from '~/lib/url';
 
 const inquiryBody = `Hi Honeymoon,
 
@@ -13,6 +14,8 @@ Notes:
 Thanks!`;
 
 const inquiryHref = `mailto:${SITE.email}?subject=${encodeURIComponent('Honeymoon Booking Inquiry')}&body=${encodeURIComponent(inquiryBody)}`;
+const formAction = `https://formsubmit.co/${SITE.email}`;
+const successRedirect = `${SITE.url}${url('/booking?sent=1')}#thanks`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -39,18 +42,143 @@ const jsonLd = {
 
 <BaseLayout
   title="Book Honeymoon — Wedding & Private Event Band"
-  description="Book Honeymoon for your NYC, Long Island, or Westchester event. Three configurations available. Pricing on request."
+  description="Book Honeymoon for your NYC, Long Island, or Westchester event. Send us your date, venue, and configuration — we reply within 1–2 business days."
   jsonLd={jsonLd}
 >
-  <section class="container-narrow pt-16 pb-10">
+  <section class="container-narrow pt-16 pb-8">
     <p class="eyebrow">Booking</p>
-    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Book Honeymoon</h1>
+    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Book Honeymoon.</h1>
     <p class="mt-6 text-lg text-espresso/85 max-w-2xl leading-relaxed">
       Available for weddings, private events, and corporate parties across the New York Tristate Area.
-      Tell us about your event and we'll send pricing and availability.
+      Tell us about your event and we'll send pricing and availability within 1–2 business days.
     </p>
-    <div class="mt-8">
-      <a href={inquiryHref} class="btn btn-primary">Email {SITE.email}</a>
+  </section>
+
+  <section class="container-narrow pb-12">
+    <div
+      id="thanks"
+      class="hidden bg-honey/15 border border-honey px-5 py-4 mb-8 text-espresso"
+      data-success-banner
+    >
+      <p class="font-semibold">Thanks — we got it.</p>
+      <p class="mt-1 text-sm">We'll respond within 1–2 business days. If you don't hear from us, check your spam folder or email <a href={`mailto:${SITE.email}`} class="underline decoration-honey">{SITE.email}</a> directly.</p>
+    </div>
+
+    <div class="bg-white border border-honey/20 p-6 md:p-8">
+      <h2 class="text-2xl font-bold">Send us your event details</h2>
+      <p class="mt-2 text-sm text-espresso/70">All fields marked with * are required.</p>
+
+      <form action={formAction} method="POST" class="mt-6 grid gap-5">
+        <input type="hidden" name="_subject" value="Honeymoon Booking Inquiry" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" value={successRedirect} />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <label class="block">
+            <span class="block text-sm font-semibold mb-1">Your name *</span>
+            <input
+              type="text"
+              name="name"
+              required
+              class="w-full border border-honey/30 bg-cream/40 px-4 py-3 focus:outline-none focus:border-honey focus:bg-white transition-colors"
+            />
+          </label>
+          <label class="block">
+            <span class="block text-sm font-semibold mb-1">Email *</span>
+            <input
+              type="email"
+              name="email"
+              required
+              class="w-full border border-honey/30 bg-cream/40 px-4 py-3 focus:outline-none focus:border-honey focus:bg-white transition-colors"
+            />
+          </label>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <label class="block">
+            <span class="block text-sm font-semibold mb-1">Event date</span>
+            <input
+              type="text"
+              name="event_date"
+              placeholder="e.g. Sept 14, 2026 — or a range"
+              class="w-full border border-honey/30 bg-cream/40 px-4 py-3 focus:outline-none focus:border-honey focus:bg-white transition-colors"
+            />
+          </label>
+          <label class="block">
+            <span class="block text-sm font-semibold mb-1">Venue / city</span>
+            <input
+              type="text"
+              name="venue"
+              placeholder="e.g. Oheka Castle, Huntington NY"
+              class="w-full border border-honey/30 bg-cream/40 px-4 py-3 focus:outline-none focus:border-honey focus:bg-white transition-colors"
+            />
+          </label>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <label class="block">
+            <span class="block text-sm font-semibold mb-1">Configuration</span>
+            <select
+              name="configuration"
+              class="w-full border border-honey/30 bg-cream/40 px-4 py-3 focus:outline-none focus:border-honey focus:bg-white transition-colors"
+            >
+              <option value="">— Select —</option>
+              <option>Standard 6-piece</option>
+              <option>Extended (with horns)</option>
+              <option>Band + DJ hybrid</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="block text-sm font-semibold mb-1">Hours of live music</span>
+            <input
+              type="text"
+              name="hours"
+              placeholder="e.g. 4 hours, ceremony + reception"
+              class="w-full border border-honey/30 bg-cream/40 px-4 py-3 focus:outline-none focus:border-honey focus:bg-white transition-colors"
+            />
+          </label>
+        </div>
+
+        <label class="block">
+          <span class="block text-sm font-semibold mb-1">Notes</span>
+          <textarea
+            name="notes"
+            rows="5"
+            placeholder="Anything special — ceremony, song requests, surprise moments, vibe."
+            class="w-full border border-honey/30 bg-cream/40 px-4 py-3 focus:outline-none focus:border-honey focus:bg-white transition-colors"
+          ></textarea>
+        </label>
+
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <button type="submit" class="btn btn-primary">Send inquiry</button>
+          <span class="text-xs text-espresso/60">We reply within 1–2 business days.</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="container-narrow pb-16">
+    <div class="border border-honey/15 bg-cream px-6 py-5">
+      <p class="eyebrow">Prefer email?</p>
+      <p class="mt-3 text-espresso/85">
+        Write us directly at
+        <a href={`mailto:${SITE.email}`} class="font-semibold underline decoration-honey hover:text-honey">{SITE.email}</a>.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a href={inquiryHref} class="btn btn-ghost text-xs">Open in mail app</a>
+        <button
+          type="button"
+          class="btn btn-ghost text-xs"
+          data-copy-email
+          data-email={SITE.email}
+        >
+          Copy email address
+        </button>
+        <span class="text-xs text-espresso/60 self-center" data-copy-confirm hidden>Copied!</span>
+      </div>
     </div>
   </section>
 
@@ -92,24 +220,31 @@ const jsonLd = {
     </div>
   </section>
 
-  <section class="bg-espresso text-cream py-16">
-    <div class="container-narrow">
-      <h2 class="text-2xl md:text-3xl font-bold">Get pricing</h2>
-      <p class="mt-4 text-cream/80 max-w-2xl">
-        Pricing depends on configuration, date, and event scope. Send us a quick note and we'll respond with
-        availability and a quote.
-      </p>
-      <p class="mt-8 text-sm text-cream/70 uppercase tracking-wider font-semibold">Include in your email:</p>
-      <ul class="mt-3 grid sm:grid-cols-2 gap-2 text-cream/85 text-sm max-w-2xl">
-        <li>· Event date (or range)</li>
-        <li>· Venue / location</li>
-        <li>· Configuration</li>
-        <li>· Approximate hours of live music</li>
-        <li>· Anything special — ceremony, requests, surprises</li>
-      </ul>
-      <div class="mt-10">
-        <a href={inquiryHref} class="btn btn-primary">Email {SITE.email}</a>
-      </div>
-    </div>
-  </section>
+  <script is:inline>
+    // Reveal success banner if redirected back from form submission
+    if (new URLSearchParams(window.location.search).has('sent')) {
+      const banner = document.querySelector('[data-success-banner]');
+      if (banner) {
+        banner.classList.remove('hidden');
+        banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // Copy-email button
+    document.querySelectorAll('[data-copy-email]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const email = btn.getAttribute('data-email');
+        try {
+          await navigator.clipboard.writeText(email);
+          const confirm = document.querySelector('[data-copy-confirm]');
+          if (confirm) {
+            confirm.removeAttribute('hidden');
+            setTimeout(() => confirm.setAttribute('hidden', ''), 2500);
+          }
+        } catch (e) {
+          window.prompt('Copy this email address:', email);
+        }
+      });
+    });
+  </script>
 </BaseLayout>

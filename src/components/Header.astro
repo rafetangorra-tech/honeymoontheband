@@ -1,5 +1,5 @@
 ---
-import { NAV, bookingMailto } from '~/data/site';
+import { NAV } from '~/data/site';
 import { url } from '~/lib/url';
 
 const { pathname } = Astro.url;
@@ -39,7 +39,7 @@ const isActive = (href: string) => {
       ))}
     </nav>
 
-    <a href={bookingMailto()} class="btn btn-primary text-xs md:text-sm">
+    <a href={url('/booking')} class="btn btn-primary text-xs md:text-sm">
       Book us
     </a>
   </div>
