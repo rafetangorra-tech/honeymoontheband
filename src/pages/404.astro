@@ -1,15 +1,33 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { bandPhoto } from '~/data/photos';
 import { url } from '~/lib/url';
 ---
 
 <BaseLayout title="Not Found — Honeymoon" noindex>
-  <section class="container-narrow py-32 text-center">
-    <p class="eyebrow">404</p>
-    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Page not found.</h1>
-    <p class="mt-6 text-espresso/75">The page you're looking for isn't here.</p>
-    <div class="mt-10">
-      <a href={url('/')} class="btn btn-primary">Back to home</a>
+  <section class="relative bg-espresso text-cream overflow-hidden">
+    <Image
+      src={bandPhoto}
+      alt=""
+      widths={[768, 1280, 1920]}
+      sizes="100vw"
+      formats={['avif', 'webp']}
+      class="absolute inset-0 h-full w-full object-cover opacity-25"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-espresso/80 via-espresso/90 to-espresso"></div>
+    <div class="container-narrow relative py-32 md:py-40 text-center">
+      <p class="eyebrow">404</p>
+      <h1 class="mt-3 text-5xl md:text-7xl font-extrabold tracking-tight">
+        That song's not in the set.
+      </h1>
+      <p class="mt-6 max-w-md mx-auto text-cream/80 leading-relaxed">
+        The page you're looking for isn't on this site. Head back to the homepage or jump straight to booking.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a href={url('/')} class="btn btn-primary">Back to home</a>
+        <a href={url('/song-list')} class="btn btn-ghost">See the song list</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

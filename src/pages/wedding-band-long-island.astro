@@ -1,0 +1,98 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import { SITE, CONFIGURATIONS, bookingMailto } from '~/data/site';
+import { bandPhoto } from '~/data/photos';
+import { url } from '~/lib/url';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Live Wedding Band — Long Island',
+  serviceType: 'Live wedding band',
+  provider: {
+    '@type': 'MusicGroup',
+    name: 'Honeymoon',
+    url: SITE.url,
+    email: SITE.email,
+  },
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Nassau County' },
+    { '@type': 'AdministrativeArea', name: 'Suffolk County' },
+    { '@type': 'Place', name: 'The Hamptons' },
+    { '@type': 'Place', name: 'North Fork' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Wedding Band Long Island | Honeymoon — Nassau, Suffolk, Hamptons"
+  description="Long Island's live six-piece wedding band. Honeymoon plays Nassau, Suffolk, the Hamptons, and the North Fork. Pro show, deep song list, two lead vocalists."
+  jsonLd={jsonLd}
+>
+  <section class="bg-espresso text-cream relative overflow-hidden">
+    <Image
+      src={bandPhoto}
+      alt="Honeymoon performing live"
+      widths={[768, 1280, 1920]}
+      sizes="100vw"
+      formats={['avif', 'webp']}
+      loading="eager"
+      class="absolute inset-0 h-full w-full object-cover opacity-25"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-espresso/80 via-espresso/90 to-espresso"></div>
+    <div class="container-narrow relative py-24 md:py-32 text-center">
+      <p class="eyebrow">Live Wedding Band</p>
+      <h1 class="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.1]">
+        Long Island's<br/>live wedding band.
+      </h1>
+      <p class="mt-6 max-w-2xl mx-auto text-cream/85 leading-relaxed">
+        Based on Long Island, built for it. Honeymoon plays weddings across <strong class="text-cream">Nassau and Suffolk Counties, the Hamptons, and the North Fork</strong> — six-piece live, two lead vocals, full sound.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a href={bookingMailto('Honeymoon — Long Island Wedding Inquiry')} class="btn btn-primary">Check our availability</a>
+        <a href={url('/song-list')} class="btn btn-ghost">See the song list</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-narrow py-20">
+    <div class="max-w-3xl">
+      <p class="eyebrow">Local band, local rooms</p>
+      <h2 class="mt-3 text-3xl md:text-4xl font-bold">We know the venues. We know the timelines.</h2>
+      <p class="mt-6 leading-relaxed text-espresso/85">
+        Honeymoon is based on Long Island, and most of our players have spent years on the local wedding circuit. That means we know how rooms like <strong>Oheka Castle, The Garden City Hotel, Westbury Manor, The Mansion at Glen Cove, Lessing's venues, and Hamptons private estates</strong> actually run a Saturday — load-in, sound check, ceremony into cocktail into reception, and out the door before the venue's overtime kicks in.
+      </p>
+      <p class="mt-4 leading-relaxed text-espresso/85">
+        It also means we play music your guests on Long Island actually want to hear: Motown, classic rock, modern pop, disco, country, and the ballads that anchor a first dance.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white border-y border-honey/15 py-16">
+    <div class="container-narrow">
+      <h2 class="text-2xl md:text-3xl font-bold">Three configurations</h2>
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        {CONFIGURATIONS.map(c => (
+          <div class="border border-honey/20 p-6 bg-cream">
+            <h3 class="font-bold text-lg">{c.name}</h3>
+            <p class="mt-3 text-sm text-espresso/80 leading-relaxed">{c.summary}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container-narrow py-20 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold">Long Island date in mind?</h2>
+    <p class="mt-4 max-w-xl mx-auto text-espresso/80">
+      Send us your venue and date — we'll come back with availability and a quote.
+    </p>
+    <div class="mt-8">
+      <a href={bookingMailto('Honeymoon — Long Island Wedding Inquiry')} class="btn btn-primary">Email {SITE.email}</a>
+    </div>
+    <p class="mt-6 text-sm text-espresso/60">
+      Also serving <a href={url('/wedding-band-nyc')} class="underline decoration-honey hover:text-honey">NYC</a>, <a href={url('/wedding-band-westchester')} class="underline decoration-honey hover:text-honey">Westchester</a>, and <a href={url('/corporate-event-band')} class="underline decoration-honey hover:text-honey">corporate events</a>.
+    </p>
+  </section>
+</BaseLayout>

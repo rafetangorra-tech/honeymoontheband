@@ -1,8 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import MemberCard from '~/components/MemberCard.astro';
 import { getCollection } from 'astro:content';
 import { SITE, SERVICE_AREAS, bookingMailto } from '~/data/site';
+import { memberImages } from '~/data/member-images';
+import { bandPhoto } from '~/data/photos';
 import { url } from '~/lib/url';
 import { SONG_LIST } from '~/data/song-list';
 
@@ -49,9 +52,14 @@ const jsonLd = {
 >
   <!-- Hero -->
   <section class="bg-espresso text-cream relative overflow-hidden">
-    <img
-      src={url('/img/band.jpg')}
+    <Image
+      src={bandPhoto}
       alt="Honeymoon the Band"
+      widths={[768, 1280, 1920, 2560]}
+      sizes="100vw"
+      formats={['avif', 'webp']}
+      loading="eager"
+      fetchpriority="high"
       class="absolute inset-0 h-full w-full object-cover opacity-30"
     />
     <div class="absolute inset-0 bg-gradient-to-b from-espresso/70 via-espresso/85 to-espresso"></div>
@@ -117,6 +125,7 @@ const jsonLd = {
           slug={b.data.slug}
           name={b.data.name}
           role={b.data.role}
+          image={memberImages[b.data.slug]}
           teaser={teasers[b.data.slug]}
         />
       ))}

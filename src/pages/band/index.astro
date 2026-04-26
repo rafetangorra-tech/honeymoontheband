@@ -3,6 +3,7 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 import MemberCard from '~/components/MemberCard.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '~/data/site';
+import { memberImages } from '~/data/member-images';
 
 const bios = (await getCollection('bios')).sort((a, b) => a.data.order - b.data.order);
 
@@ -48,6 +49,7 @@ const jsonLd = {
           slug={b.data.slug}
           name={b.data.name}
           role={b.data.role}
+          image={memberImages[b.data.slug]}
           teaser={teasers[b.data.slug]}
         />
       ))}
