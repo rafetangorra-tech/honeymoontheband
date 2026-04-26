@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { SITE, CONFIGURATIONS, SERVICE_AREAS, bookingMailto } from '~/data/site';
-import { bandPhoto } from '~/data/photos';
+import { bandPhotoLogo } from '~/data/photos';
 import { url } from '~/lib/url';
 
 const bios = (await getCollection('bios')).sort((a, b) => a.data.order - b.data.order);
@@ -75,15 +75,15 @@ const jsonLd = {
   </section>
 
   <section class="container-narrow pb-12">
-    <div class="aspect-[3/2] bg-espresso overflow-hidden border border-honey/15">
+    <div class="aspect-[5/4] bg-espresso overflow-hidden border border-honey/15">
       <Image
-        src={bandPhoto}
+        src={bandPhotoLogo}
         alt="Honeymoon — six-piece live band, NY Tristate"
-        widths={[768, 1280, 1920]}
+        widths={[600, 900, 1200, 1600]}
         sizes="(min-width: 1024px) 64rem, 100vw"
         formats={['avif', 'webp']}
         loading="eager"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-contain"
       />
     </div>
   </section>
