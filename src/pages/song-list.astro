@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { SONG_LIST } from '~/data/song-list';
-import { SITE, bookingMailto } from '~/data/site';
+import { SITE } from '~/data/site';
+import { url } from '~/lib/url';
 
 const totalSongs = SONG_LIST.reduce((sum, g) => sum + g.songs.length, 0);
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
