@@ -147,4 +147,3 @@ Our full repertoire, organized by genre. We update this regularly and learn new 
 - "Poison" appeared in two genre buckets in the source doc — placed under 2000s/Throwbacks (Bell Biv DeVoe). Confirm it's not also the Alice Cooper "Poison."
 - "Le Freak" added as a soft suggestion based on disco set strength — remove if not in book.
 - Songs marked **\[X\]** in the LIU doc (tracked playback) are still listed publicly as part of the live show; OK to publish as-is.
-- Setlist "Emily" lead-vocal credits left out of public list — no per-song vocalist info on the public page.

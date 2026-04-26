@@ -133,25 +133,39 @@ Each page lists: **H1**, **meta title** (≤60 chars), **meta description** (≤
 - **Consistent naming.** Always "Honeymoon" (not "Honeymoon Band" or "The Honeymoon Band") in body copy. "Honeymoon the Band" reserved for branded SEO contexts (page titles, schema `name`, `alternateName`).
 - **One CTA.** Email `honeymoonbandbookings@gmail.com`. No contact form for v1.
 
-## 8. Tech stack (recommendation, not committed)
+## 8. Configurations offered
 
-- **Astro** — content-first static site, ships zero JS by default, perfect for an SEO-driven music site. Tailwind for styling. Deploy to Vercel or Netlify.
-- Alternative: **Next.js** if we expect richer interactivity later (booking calendar, gated EPK).
+- **Standard 6-piece** — Honeymoon's core lineup: 2 lead vocals, guitar, keys, bass, drums.
+- **Extended (with horns)** — 6-piece plus added horn players for a fuller sound.
+- **Band + DJ hybrid** — live band performance integrated with a DJ for seamless transitions and extended dance sets.
 
-## 9. Open questions for Rafe
+Pricing for all configurations is provided on request via `honeymoonbandbookings@gmail.com`.
 
-1. **Emily on the LIU setlist** — current member, fill-in, or one-time guest? Is Alex still in the band?
-2. **Nick's bio framing** — comfortable mentioning the Nick Tangorra Band history + brother angle, or keep it understated?
-3. **FAQ details** — pricing range to publish (or "starting at $X" or "available on request"), travel radius, typical set length, advance booking window.
-4. **Service area precision** — list specific counties/towns we want to rank for? (e.g. "Nassau, Suffolk, Westchester, NYC five boroughs, North Fork, Hamptons")
-5. **Configurations** — do we offer different lineup sizes (e.g. 4-piece vs 6-piece vs DJ+band hybrid)?
-6. **EPK** — separate `/epk` page or downloadable PDF? When?
-7. **Domain & DNS** — when we're ready, Wix → new host cutover. We'll plan that closer to launch.
+## 9. Tech stack (committed)
 
-## 10. What's drafted in this folder
+- **Astro + Tailwind CSS.** Content-first static site, ships zero JS by default, perfect for an SEO-driven music site. Member pages, song list, and FAQ all generated from markdown in `content/` so non-engineers can edit.
+- **Hosting:** Vercel (free tier; auto-deploys from `main`). Alternative: Netlify.
+- **Image pipeline:** Astro's built-in `<Image />` for responsive WebP + AVIF; full-size source images stay in `assets/`.
+- **Forms:** none for v1 — single mailto CTA.
+
+## 10. Resolved decisions (formerly open questions)
+
+- ✅ **Roster:** Nick (new lead vocals, listed first), Alex (lead vocals), Marc, Frank, Pete, Rafe. Emily on the LIU setlist was a fill-in.
+- ✅ **Nick's bio framing:** brother angle + Nick Tangorra Band / EPIC Records / Rock Out Autism history is in. Tasteful, not heavy.
+- ✅ **Pricing:** "available on request" — page CTAs route to email.
+- ✅ **Service area:** NYC, Long Island, Westchester. Travel beyond available on request.
+- ✅ **Configurations:** see §8.
+- ✅ **Stack:** Astro + Tailwind, Vercel.
+
+## 11. Still to decide (not blocking copy drafts)
+
+- **EPK** — separate `/epk` route or downloadable PDF? Deferred until v1 is shipped.
+- **Domain & DNS cutover** from Wix — plan closer to launch.
+- **FAQ specifics that aren't on the live site yet** — set length, break structure, advance booking window, PA/sound provided. I'll draft sensible defaults in `faq.md` and flag them as `<<CONFIRM>>` for your sign-off.
+
+## 12. What's drafted in this folder
 
 - `CONTENT_PLAN.md` — this file
 - `bios/` — per-member bio drafts (SEO-rewritten)
 - `song-list.md` — clean unified repertoire from both Google Docs
-
-Pages (`home.md`, `about.md`, etc.) will be drafted next once the Q9 questions are answered.
+- `copy/home.md`, `copy/about.md`, `copy/booking.md`, `copy/faq.md` — page copy
