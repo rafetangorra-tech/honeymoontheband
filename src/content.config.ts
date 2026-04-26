@@ -18,4 +18,16 @@ const docs = defineCollection({
   }).passthrough(),
 });
 
-export const collections = { bios, docs };
+const articles = defineCollection({
+  loader: glob({ pattern: '*.md', base: './content/articles' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    excerpt: z.string().optional(),
+    ogImage: z.string().optional(),
+  }),
+});
+
+export const collections = { bios, docs, articles };

@@ -1,0 +1,104 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE, bookingMailto } from '~/data/site';
+import { url } from '~/lib/url';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map(article => ({
+    params: { slug: article.id.replace(/\.md$/, '') },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const allArticles = (await getCollection('articles'))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+const others = allArticles.filter(a => a.id !== article.id).slice(0, 3);
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: article.data.title,
+  description: article.data.description,
+  datePublished: article.data.publishDate.toISOString(),
+  ...(article.data.updatedDate && { dateModified: article.data.updatedDate.toISOString() }),
+  author: {
+    '@type': 'Organization',
+    name: 'Honeymoon',
+    url: SITE.url,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Honeymoon',
+    url: SITE.url,
+  },
+  mainEntityOfPage: `${SITE.url}/blog/${article.id.replace(/\.md$/, '')}`,
+};
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: article.data.title, path: `/blog/${article.id.replace(/\.md$/, '')}` },
+];
+---
+
+<BaseLayout
+  title={`${article.data.title} — Honeymoon`}
+  description={article.data.description}
+  jsonLd={jsonLd}
+  breadcrumbs={breadcrumbs}
+>
+  <article class="container-narrow pt-12 pb-16">
+    <a href={url('/blog')} class="text-sm font-semibold uppercase tracking-[0.16em] text-honey hover:underline underline-offset-4">
+      ← Blog
+    </a>
+
+    <header class="mt-8">
+      <p class="eyebrow">Article</p>
+      <h1 class="mt-3 text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1]">
+        {article.data.title}
+      </h1>
+      <p class="mt-5 text-sm uppercase tracking-wider text-espresso/60">
+        Published {formatDate(article.data.publishDate)}
+        {article.data.updatedDate && ` · Updated ${formatDate(article.data.updatedDate)}`}
+      </p>
+    </header>
+
+    <div class="mt-10 prose-honeymoon max-w-2xl">
+      <Content />
+    </div>
+
+    <div class="mt-14 border-t border-honey/15 pt-8 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <p class="font-semibold">Want to talk about your event?</p>
+        <p class="text-sm text-espresso/70 mt-1">Send us your date and venue.</p>
+      </div>
+      <a href={url('/booking')} class="btn btn-primary">Book Honeymoon</a>
+    </div>
+  </article>
+
+  {others.length > 0 && (
+    <section class="bg-white border-t border-honey/15 py-14">
+      <div class="container-narrow">
+        <p class="eyebrow">More articles</p>
+        <ul class="mt-6 grid md:grid-cols-3 gap-6">
+          {others.map(o => (
+            <li>
+              <a href={url(`/blog/${o.id.replace(/\.md$/, '')}`)} class="group block bg-cream border border-honey/15 hover:border-honey p-5 transition-colors h-full">
+                <h3 class="font-bold leading-snug group-hover:text-honey transition-colors">{o.data.title}</h3>
+                <p class="mt-3 text-sm text-espresso/70 leading-relaxed">{o.data.excerpt ?? o.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+</BaseLayout>

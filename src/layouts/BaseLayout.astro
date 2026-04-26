@@ -1,5 +1,6 @@
 ---
 import '~/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import MobileBookingCTA from '~/components/MobileBookingCTA.astro';
@@ -97,6 +98,8 @@ const allJsonLd = [organizationSchema, ...(breadcrumbSchema ? [breadcrumbSchema]
     {allJsonLd.map(obj => (
       <script type="application/ld+json" set:html={JSON.stringify(obj)} />
     ))}
+
+    <ClientRouter />
   </head>
   <body class="min-h-screen flex flex-col">
     <a

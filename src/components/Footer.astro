@@ -39,7 +39,9 @@ const year = new Date().getFullYear();
     <div class="md:col-span-3">
       <p class="eyebrow !text-honey">Resources & Contact</p>
       <ul class="mt-3 space-y-2 text-sm">
+        <li><a href={url('/blog')} class="hover:text-honey transition-colors">Blog</a></li>
         <li><a href={url('/live-band-vs-dj')} class="hover:text-honey transition-colors">Live band vs. DJ</a></li>
+        <li><a href={url('/epk')} class="hover:text-honey transition-colors">EPK / Press kit</a></li>
         <li><a href={`mailto:${SITE.email}`} class="hover:text-honey transition-colors break-all">{SITE.email}</a></li>
         <li><a href={SITE.socials.instagram} class="hover:text-honey transition-colors" rel="noopener" target="_blank">Instagram</a></li>
         <li><a href={SITE.socials.facebook} class="hover:text-honey transition-colors" rel="noopener" target="_blank">Facebook</a></li>

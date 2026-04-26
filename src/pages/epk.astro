@@ -1,0 +1,202 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { SITE, CONFIGURATIONS, SERVICE_AREAS, bookingMailto } from '~/data/site';
+import { bandPhoto } from '~/data/photos';
+import { url } from '~/lib/url';
+
+const bios = (await getCollection('bios')).sort((a, b) => a.data.order - b.data.order);
+
+const downloads = [
+  {
+    label: 'Technical Rider (PDF)',
+    detail: 'Input schedule, production notes, stage plot.',
+    href: '/press/honeymoon-technical-rider.pdf',
+    size: '~440 KB',
+  },
+  {
+    label: 'Brand Guide (PDF)',
+    detail: 'Colors, typography, logo usage.',
+    href: '/honeymoon-brand-guide.pdf',
+    size: '~22 MB',
+  },
+  {
+    label: 'Hi-Res Band Photo (JPG)',
+    detail: '3200 × 2133 — print-ready.',
+    href: '/press/honeymoon-band-photo-hires.jpg',
+    size: '~1 MB',
+  },
+  {
+    label: 'Logo (transparent PNG)',
+    detail: 'Primary mark, full-resolution.',
+    href: '/press/honeymoon-logo.png',
+    size: '~330 KB',
+  },
+];
+
+const memberPhotos = bios.map(b => {
+  const firstName = b.data.slug.split('-')[0];
+  return {
+    name: b.data.name,
+    role: b.data.role,
+    href: `/press/members/${firstName}-hires.jpg`,
+  };
+});
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: 'Honeymoon',
+  url: `${SITE.url}/epk`,
+  description: SITE.defaultDescription,
+  email: SITE.email,
+};
+---
+
+<BaseLayout
+  title="EPK / Press Kit — Honeymoon"
+  description="Honeymoon's electronic press kit: bios, hi-res photos, technical rider, stage plot, brand assets, and booking contact for planners and agents."
+  jsonLd={jsonLd}
+>
+  <section class="container-narrow pt-16 pb-10">
+    <p class="eyebrow">Press Kit</p>
+    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Honeymoon EPK.</h1>
+    <p class="mt-6 text-lg leading-relaxed text-espresso/85 max-w-2xl">
+      Everything planners, agents, and venues need to book and brief Honeymoon — bios, hi-res photos,
+      technical rider, stage plot, and brand assets.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={url('/press/honeymoon-technical-rider.pdf')} class="btn btn-primary" target="_blank" rel="noopener">
+        Download Technical Rider
+      </a>
+      <a href={bookingMailto('Honeymoon — EPK / Booking Inquiry')} class="btn btn-ghost">Email booking</a>
+    </div>
+  </section>
+
+  <section class="container-narrow pb-12">
+    <div class="aspect-[3/2] bg-espresso overflow-hidden border border-honey/15">
+      <Image
+        src={bandPhoto}
+        alt="Honeymoon — six-piece live band, NY Tristate"
+        widths={[768, 1280, 1920]}
+        sizes="(min-width: 1024px) 64rem, 100vw"
+        formats={['avif', 'webp']}
+        loading="eager"
+        class="w-full h-full object-cover"
+      />
+    </div>
+  </section>
+
+  <section class="bg-white border-y border-honey/15 py-14">
+    <div class="container-narrow grid md:grid-cols-2 gap-10">
+      <div>
+        <p class="eyebrow">Quick facts</p>
+        <h2 class="mt-3 text-2xl md:text-3xl font-bold">Honeymoon at a glance.</h2>
+        <dl class="mt-6 space-y-3 text-espresso/85">
+          <div class="flex gap-3"><dt class="font-semibold w-32 shrink-0">Ensemble</dt><dd>6-piece live band; 16-channel input schedule</dd></div>
+          <div class="flex gap-3"><dt class="font-semibold w-32 shrink-0">Lead vocals</dt><dd>Nick Tangorra, Alexandra Mendes</dd></div>
+          <div class="flex gap-3"><dt class="font-semibold w-32 shrink-0">Configurations</dt><dd>Standard 6-piece · Extended w/ horns · Band + DJ hybrid</dd></div>
+          <div class="flex gap-3"><dt class="font-semibold w-32 shrink-0">Service area</dt><dd>NYC · Long Island · Westchester · Tristate</dd></div>
+          <div class="flex gap-3"><dt class="font-semibold w-32 shrink-0">Genres</dt><dd>Pop, Motown, Soul, Funk, Rock, Disco, Country, Latin</dd></div>
+          <div class="flex gap-3"><dt class="font-semibold w-32 shrink-0">Booking</dt><dd><a href={`mailto:${SITE.email}`} class="text-honey hover:underline underline-offset-4 break-all">{SITE.email}</a></dd></div>
+          <div class="flex gap-3"><dt class="font-semibold w-32 shrink-0">Site</dt><dd><a href={SITE.url} class="text-honey hover:underline underline-offset-4">{SITE.url.replace('https://','')}</a></dd></div>
+          <div class="flex gap-3"><dt class="font-semibold w-32 shrink-0">Instagram</dt><dd><a href={SITE.socials.instagram} target="_blank" rel="noopener" class="text-honey hover:underline underline-offset-4">{SITE.igHandle}</a></dd></div>
+        </dl>
+      </div>
+
+      <div>
+        <p class="eyebrow">One-liner</p>
+        <blockquote class="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight leading-tight border-l-4 border-honey pl-5">
+          Honeymoon is a six-piece live wedding & event band based in the New York Tristate Area —
+          two lead vocals, a tight rhythm section, and a deep song list designed to keep the room moving.
+        </blockquote>
+        <p class="mt-6 text-espresso/85 leading-relaxed">
+          Long-form bios, individual member backgrounds, configurations, and the full song list are all
+          available on the public site. Use the downloads below for press, planning, or production.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={url('/about')} class="text-sm text-honey font-semibold hover:underline underline-offset-4">About →</a>
+          <a href={url('/band')} class="text-sm text-honey font-semibold hover:underline underline-offset-4">Members →</a>
+          <a href={url('/song-list')} class="text-sm text-honey font-semibold hover:underline underline-offset-4">Song list →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-narrow py-14">
+    <h2 class="text-2xl md:text-3xl font-bold">Downloads</h2>
+    <div class="mt-8 grid md:grid-cols-2 gap-4">
+      {downloads.map(d => (
+        <a
+          href={url(d.href)}
+          target="_blank"
+          rel="noopener"
+          class="block bg-white border border-honey/20 hover:border-honey p-5 transition-colors"
+        >
+          <div class="flex justify-between items-start gap-4">
+            <div>
+              <p class="font-bold">{d.label}</p>
+              <p class="mt-1 text-sm text-espresso/70">{d.detail}</p>
+            </div>
+            <span class="text-xs text-honey font-semibold uppercase tracking-wider whitespace-nowrap">
+              {d.size}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <h3 class="mt-10 text-xl font-bold">Member Headshots (Hi-Res JPG)</h3>
+    <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+      {memberPhotos.map(m => (
+        <a
+          href={url(m.href)}
+          target="_blank"
+          rel="noopener"
+          class="block bg-white border border-honey/20 hover:border-honey px-3 py-3 text-center transition-colors"
+        >
+          <p class="font-semibold text-sm">{m.name}</p>
+          <p class="text-xs text-espresso/60 mt-1">Download</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-white border-y border-honey/15 py-14">
+    <div class="container-narrow">
+      <h2 class="text-2xl md:text-3xl font-bold">Configurations</h2>
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        {CONFIGURATIONS.map(c => (
+          <div class="border border-honey/20 p-6 bg-cream">
+            <h3 class="font-bold text-lg">{c.name}</h3>
+            <p class="mt-3 text-sm text-espresso/80 leading-relaxed">{c.summary}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container-narrow py-14">
+    <h2 class="text-2xl md:text-3xl font-bold">Service Area</h2>
+    <ul class="mt-6 grid sm:grid-cols-2 gap-2 text-espresso/85">
+      {SERVICE_AREAS.map(a => (
+        <li class="flex gap-2"><span class="text-honey">●</span><span>{a}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="bg-espresso text-cream py-16">
+    <div class="container-narrow text-center">
+      <p class="eyebrow">Booking</p>
+      <h2 class="mt-3 text-2xl md:text-3xl font-bold">Reach out anytime.</h2>
+      <p class="mt-4 text-cream/80 max-w-xl mx-auto">
+        For pricing, availability, and contracts — email us with your event details.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4 justify-center">
+        <a href={url('/booking')} class="btn btn-primary">Booking inquiry form</a>
+        <a href={`mailto:${SITE.email}`} class="btn btn-ghost">{SITE.email}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
