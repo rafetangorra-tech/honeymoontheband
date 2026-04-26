@@ -1,33 +1,48 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
-import InstagramEmbed from '~/components/InstagramEmbed.astro';
 import { SITE } from '~/data/site';
 import { FEATURED_REELS } from '~/data/featured-reels';
+import { url } from '~/lib/url';
 
 const PROMO_VIDEO_ID = 'iSb-UX3FPyQ';
 const PROMO_URL = `https://www.youtube.com/watch?v=${PROMO_VIDEO_ID}`;
 const PROMO_EMBED = `https://www.youtube-nocookie.com/embed/${PROMO_VIDEO_ID}?rel=0&modestbranding=1&playsinline=1`;
 const PROMO_THUMB = `https://i.ytimg.com/vi/${PROMO_VIDEO_ID}/maxresdefault.jpg`;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'VideoObject',
-  name: 'Honeymoon — Live Promo',
-  description: "Live performance reel from Honeymoon, the NY Tristate live wedding & event band.",
-  thumbnailUrl: PROMO_THUMB,
-  contentUrl: PROMO_URL,
-  embedUrl: PROMO_EMBED,
-  publisher: {
-    '@type': 'MusicGroup',
-    name: 'Honeymoon',
-    url: SITE.url,
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'Honeymoon — Live Promo',
+    description: 'Live performance reel from Honeymoon, the NY Tristate live wedding & event band.',
+    thumbnailUrl: PROMO_THUMB,
+    contentUrl: PROMO_URL,
+    embedUrl: PROMO_EMBED,
+    publisher: {
+      '@type': 'MusicGroup',
+      name: 'Honeymoon',
+      url: SITE.url,
+    },
   },
-};
+  ...FEATURED_REELS.map(reel => ({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: `Honeymoon — Live clip (${reel.id})`,
+    description: 'Live clip from a recent Honeymoon performance.',
+    thumbnailUrl: `${SITE.url}${url(`/img/reels/${reel.id}.jpg`)}`,
+    contentUrl: `${SITE.url}${url(`/videos/${reel.id}.mp4`)}`,
+    publisher: {
+      '@type': 'MusicGroup',
+      name: 'Honeymoon',
+      url: SITE.url,
+    },
+  })),
+];
 ---
 
 <BaseLayout
-  title="Watch Honeymoon Live — Promo Video & Reels"
-  description="Watch Honeymoon live. Featured promo video plus reels from recent weddings and events across NYC, Long Island, and Westchester."
+  title="Watch Honeymoon Live — Promo Video & Live Clips"
+  description="Watch Honeymoon live. Featured promo video plus clips from recent weddings and events across NYC, Long Island, and Westchester."
   ogImage={PROMO_THUMB}
   jsonLd={jsonLd}
 >
@@ -35,7 +50,7 @@ const jsonLd = {
     <p class="eyebrow">Music & Video</p>
     <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Hear &amp; see Honeymoon.</h1>
     <p class="mt-6 text-lg text-espresso/85 max-w-2xl leading-relaxed">
-      Our promo reel below, plus featured clips from recent shows. For the latest, follow
+      Our promo reel below, plus featured clips from recent shows. For more, follow
       <a href={SITE.socials.instagram} target="_blank" rel="noopener" class="text-honey font-semibold hover:underline underline-offset-4">
         {SITE.igHandle}
       </a>.
@@ -71,14 +86,34 @@ const jsonLd = {
   </section>
 
   <section class="container-narrow pb-16">
-    <p class="eyebrow">Featured reels</p>
+    <p class="eyebrow">Live clips</p>
     <h2 class="mt-3 text-2xl md:text-3xl font-bold">From recent shows.</h2>
-    <p class="mt-3 text-sm text-espresso/60 max-w-xl">
-      Reels load from Instagram. If they take a moment, give it a beat — or click through to view directly.
-    </p>
-    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {FEATURED_REELS.map(reel => (
-        <InstagramEmbed reelId={reel.id} />
+        <div class="bg-white border border-honey/15 overflow-hidden">
+          <div class="relative w-full bg-espresso" style="aspect-ratio: 9/16;">
+            <video
+              controls
+              playsinline
+              preload="metadata"
+              poster={url(`/img/reels/${reel.id}.jpg`)}
+              class="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src={url(`/videos/${reel.id}.mp4`)} type="video/mp4" />
+            </video>
+          </div>
+          <div class="px-4 py-3 text-xs uppercase tracking-wider text-espresso/60 border-t border-honey/10 flex justify-between items-center">
+            <span>Honeymoon · live</span>
+            <a
+              href={reel.igUrl}
+              target="_blank"
+              rel="noopener"
+              class="text-honey hover:underline underline-offset-4"
+            >
+              View on IG ↗
+            </a>
+          </div>
+        </div>
       ))}
     </div>
   </section>
@@ -96,6 +131,4 @@ const jsonLd = {
       </div>
     </div>
   </section>
-
-  <script is:inline async src="https://www.instagram.com/embed.js"></script>
 </BaseLayout>
