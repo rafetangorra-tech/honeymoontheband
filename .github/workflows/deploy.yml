@@ -33,7 +33,7 @@ jobs:
       - name: Build
         env:
           USE_BASE_PATH: 'false'
-          PUBLIC_SITE_URL: 'https://preview.honeymoontheband.com'
+          PUBLIC_SITE_URL: 'https://www.honeymoontheband.com'
         run: npm run build
 
       - name: Upload artifact
