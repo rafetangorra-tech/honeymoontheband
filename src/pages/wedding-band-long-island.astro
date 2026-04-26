@@ -50,7 +50,7 @@ const jsonLd = {
         Based on Long Island, built for it. Honeymoon plays weddings across <strong class="text-cream">Nassau and Suffolk Counties, the Hamptons, and the North Fork</strong> — six-piece live, two lead vocals, full sound.
       </p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href={bookingMailto('Honeymoon — Long Island Wedding Inquiry')} class="btn btn-primary">Check our availability</a>
+        <a href={url('/booking')} class="btn btn-primary">Check our availability</a>
         <a href={url('/song-list')} class="btn btn-ghost">See the song list</a>
       </div>
     </div>
@@ -89,7 +89,7 @@ const jsonLd = {
       Send us your venue and date — we'll come back with availability and a quote.
     </p>
     <div class="mt-8">
-      <a href={bookingMailto('Honeymoon — Long Island Wedding Inquiry')} class="btn btn-primary">Email {SITE.email}</a>
+      <a href={url('/booking')} class="btn btn-primary">Book Honeymoon</a>
     </div>
     <p class="mt-6 text-sm text-espresso/60">
       Also serving <a href={url('/wedding-band-nyc')} class="underline decoration-honey hover:text-honey">NYC</a>, <a href={url('/wedding-band-westchester')} class="underline decoration-honey hover:text-honey">Westchester</a>, and <a href={url('/corporate-event-band')} class="underline decoration-honey hover:text-honey">corporate events</a>.

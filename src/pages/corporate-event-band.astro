@@ -45,7 +45,7 @@ const jsonLd = {
         Honeymoon plays galas, holiday parties, brand activations, and corporate events across the New York Tristate — six-piece live, two lead vocals, and a show calibrated to the room.
       </p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href={bookingMailto('Honeymoon — Corporate Event Inquiry')} class="btn btn-primary">Get a quote</a>
+        <a href={url('/booking')} class="btn btn-primary">Get a quote</a>
         <a href={url('/song-list')} class="btn btn-ghost">See the song list</a>
       </div>
     </div>
@@ -97,7 +97,7 @@ const jsonLd = {
         Send us your event date, venue, and a one-paragraph rundown. We'll respond with availability and pricing.
       </p>
       <div class="mt-8">
-        <a href={bookingMailto('Honeymoon — Corporate Event Inquiry')} class="btn btn-primary">Email {SITE.email}</a>
+        <a href={url('/booking')} class="btn btn-primary">Book Honeymoon</a>
       </div>
       <p class="mt-6 text-sm text-cream/60">
         Also serving weddings in <a href={url('/wedding-band-nyc')} class="underline decoration-honey hover:text-honey">NYC</a>, <a href={url('/wedding-band-long-island')} class="underline decoration-honey hover:text-honey">Long Island</a>, and <a href={url('/wedding-band-westchester')} class="underline decoration-honey hover:text-honey">Westchester</a>.

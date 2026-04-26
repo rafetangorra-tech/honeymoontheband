@@ -49,7 +49,7 @@ const jsonLd = {
         Honeymoon plays weddings across <strong class="text-cream">Manhattan, Brooklyn, Queens, the Bronx, and Staten Island</strong> — built for the rooms, the timelines, and the energy New York couples expect.
       </p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href={bookingMailto('Honeymoon — NYC Wedding Inquiry')} class="btn btn-primary">Check our availability</a>
+        <a href={url('/booking')} class="btn btn-primary">Check our availability</a>
         <a href={url('/song-list')} class="btn btn-ghost">See the song list</a>
       </div>
     </div>
@@ -88,7 +88,7 @@ const jsonLd = {
       Tell us your venue and date — we'll send pricing and availability.
     </p>
     <div class="mt-8">
-      <a href={bookingMailto('Honeymoon — NYC Wedding Inquiry')} class="btn btn-primary">Email {SITE.email}</a>
+      <a href={url('/booking')} class="btn btn-primary">Book Honeymoon</a>
     </div>
     <p class="mt-6 text-sm text-espresso/60">
       Also serving <a href={url('/wedding-band-long-island')} class="underline decoration-honey hover:text-honey">Long Island</a>, <a href={url('/wedding-band-westchester')} class="underline decoration-honey hover:text-honey">Westchester</a>, and <a href={url('/corporate-event-band')} class="underline decoration-honey hover:text-honey">corporate events</a>.

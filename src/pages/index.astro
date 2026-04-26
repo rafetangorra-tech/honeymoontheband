@@ -74,7 +74,7 @@ const jsonLd = {
         <strong class="text-cream">Westchester</strong>.
       </p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href={bookingMailto()} class="btn btn-primary">Book Honeymoon</a>
+        <a href={url('/booking')} class="btn btn-primary">Book Honeymoon</a>
         <a href={url('/song-list')} class="btn btn-ghost">See the song list</a>
       </div>
     </div>
@@ -167,7 +167,7 @@ const jsonLd = {
       Available across {SERVICE_AREAS.slice(0, 3).join(', ')}. We offer a standard six-piece, an extended lineup with horns, and a band + DJ hybrid.
     </p>
     <div class="mt-10">
-      <a href={bookingMailto()} class="btn btn-primary">Email {SITE.email}</a>
+      <a href={url('/booking')} class="btn btn-primary">Book Honeymoon</a>
     </div>
     <p class="mt-4 text-sm text-espresso/60">
       Or <a href={url('/booking')} class="underline underline-offset-4 decoration-honey hover:text-honey">read booking details</a>.

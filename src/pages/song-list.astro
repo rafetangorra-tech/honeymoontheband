@@ -82,7 +82,7 @@ const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         We learn new songs for clients all the time. Send us your must-play list with your booking inquiry.
       </p>
       <div class="mt-8">
-        <a href={bookingMailto('Honeymoon Song Request')} class="btn btn-primary">Email {SITE.email}</a>
+        <a href={url('/booking')} class="btn btn-primary">Book Honeymoon</a>
       </div>
     </div>
   </section>
