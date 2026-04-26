@@ -2,7 +2,7 @@
 name: Rafe Tangorra
 role: Drums
 slug: rafe-tangorra
-order: 6
+order: 3
 ---
 
 # Rafe Tangorra — Drums

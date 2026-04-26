@@ -2,7 +2,7 @@
 name: Marc Lambert
 role: Guitar
 slug: marc-lambert
-order: 3
+order: 6
 ---
 
 # Marc Lambert — Guitar
