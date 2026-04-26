@@ -1,0 +1,30 @@
+---
+interface Props {
+  slug: string;
+  name: string;
+  role: string;
+  teaser?: string;
+}
+const { slug, name, role, teaser } = Astro.props;
+---
+
+<a
+  href={`/band/${slug}`}
+  class="group block bg-white border border-honey/15 hover:border-honey transition-colors"
+>
+  <div class="aspect-[4/5] overflow-hidden bg-espresso/5">
+    <img
+      src={`/img/members/${slug.split('-')[0]}.jpg`}
+      alt={`${name}, ${role}`}
+      width="400"
+      height="500"
+      loading="lazy"
+      class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
+  <div class="p-5">
+    <p class="eyebrow">{role}</p>
+    <h3 class="mt-1 text-lg font-bold tracking-tight">{name}</h3>
+    {teaser && <p class="mt-2 text-sm text-espresso/70 leading-snug">{teaser}</p>}
+  </div>
+</a>

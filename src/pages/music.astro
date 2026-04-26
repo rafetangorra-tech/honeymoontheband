@@ -1,0 +1,36 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { SITE } from '~/data/site';
+---
+
+<BaseLayout
+  title="Live Performance Videos — Honeymoon"
+  description="Watch Honeymoon live. Recent reels and clips from our wedding and event performances."
+>
+  <section class="container-narrow pt-16 pb-10">
+    <p class="eyebrow">Music & Video</p>
+    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Hear &amp; see Honeymoon.</h1>
+    <p class="mt-6 text-lg text-espresso/85 max-w-2xl leading-relaxed">
+      Most of our current live media lives on Instagram. Follow
+      <a href={SITE.socials.instagram} target="_blank" rel="noopener" class="text-honey font-semibold hover:underline underline-offset-4">
+        {SITE.igHandle}
+      </a>
+      for the latest reels, performance clips, and recent shows.
+    </p>
+  </section>
+
+  <section class="container-narrow pb-24">
+    <div class="border border-honey/30 bg-white p-10 md:p-14 text-center">
+      <p class="eyebrow">Featured reels</p>
+      <p class="mt-4 max-w-xl mx-auto text-espresso/75 leading-relaxed">
+        We'll embed selected Instagram reels here as we tag them. In the meantime,
+        head to Instagram to see the band live.
+      </p>
+      <div class="mt-8">
+        <a href={SITE.socials.instagram} target="_blank" rel="noopener" class="btn btn-primary">
+          Open {SITE.igHandle}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

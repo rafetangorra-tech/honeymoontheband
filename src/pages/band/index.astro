@@ -1,0 +1,56 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import MemberCard from '~/components/MemberCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '~/data/site';
+
+const bios = (await getCollection('bios')).sort((a, b) => a.data.order - b.data.order);
+
+const teasers: Record<string, string> = {
+  'nick-tangorra': 'Long Island pop singer; 28M+ streams.',
+  'alexandra-mendes': '20+ years fronting NY Tristate live shows.',
+  'marc-lambert': 'SUNY Purchase jazz grad; touring guitarist.',
+  'frank-buffolino': 'Decade-plus on the NY/LI event circuit.',
+  'pete-averso': 'Argyle Theatre, 54 Below, Engeman.',
+  'rafe-tangorra': 'EPIC Records; toured with Shawn Mendes & more.',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: 'Honeymoon',
+  url: `${SITE.url}/band`,
+  member: bios.map(b => ({
+    '@type': 'Person',
+    name: b.data.name,
+    roleName: b.data.role,
+  })),
+};
+---
+
+<BaseLayout
+  title="Meet the Band — Honeymoon"
+  description="Six musicians, decades of combined stage experience. Meet the lineup behind Honeymoon's live show."
+  jsonLd={jsonLd}
+>
+  <section class="container-narrow pt-16 pb-8">
+    <p class="eyebrow">The Band</p>
+    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Six musicians.</h1>
+    <p class="mt-5 text-lg leading-relaxed text-espresso/80 max-w-2xl">
+      Decades of combined stage experience across touring, theatre, recording, and the live-event circuit.
+    </p>
+  </section>
+
+  <section class="container-narrow pb-20">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {bios.map(b => (
+        <MemberCard
+          slug={b.data.slug}
+          name={b.data.name}
+          role={b.data.role}
+          teaser={teasers[b.data.slug]}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,115 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { SITE, SERVICE_AREAS, CONFIGURATIONS, bookingMailto } from '~/data/site';
+
+const inquiryBody = `Hi Honeymoon,
+
+Event date:
+Venue / city:
+Configuration (6-piece / extended w/ horns / band+DJ hybrid):
+Timing (hours of live music):
+Notes:
+
+Thanks!`;
+
+const inquiryHref = `mailto:${SITE.email}?subject=${encodeURIComponent('Honeymoon Booking Inquiry')}&body=${encodeURIComponent(inquiryBody)}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Live wedding and event band',
+  provider: {
+    '@type': 'MusicGroup',
+    name: 'Honeymoon',
+    url: SITE.url,
+    email: SITE.email,
+  },
+  areaServed: SERVICE_AREAS,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Honeymoon configurations',
+    itemListElement: CONFIGURATIONS.map(c => ({
+      '@type': 'Offer',
+      name: c.name,
+      description: c.summary,
+    })),
+  },
+};
+---
+
+<BaseLayout
+  title="Book Honeymoon — Wedding & Private Event Band"
+  description="Book Honeymoon for your NYC, Long Island, or Westchester event. Three configurations available. Pricing on request."
+  jsonLd={jsonLd}
+>
+  <section class="container-narrow pt-16 pb-10">
+    <p class="eyebrow">Booking</p>
+    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Book Honeymoon</h1>
+    <p class="mt-6 text-lg text-espresso/85 max-w-2xl leading-relaxed">
+      Available for weddings, private events, and corporate parties across the New York Tristate Area.
+      Tell us about your event and we'll send pricing and availability.
+    </p>
+    <div class="mt-8">
+      <a href={inquiryHref} class="btn btn-primary">Email {SITE.email}</a>
+    </div>
+  </section>
+
+  <section class="bg-white border-y border-honey/15 py-16">
+    <div class="container-narrow">
+      <h2 class="text-2xl md:text-3xl font-bold">Configurations</h2>
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        {CONFIGURATIONS.map(c => (
+          <div class="border border-honey/20 p-6 bg-cream">
+            <h3 class="font-bold text-lg">{c.name}</h3>
+            <p class="mt-3 text-sm text-espresso/80 leading-relaxed">{c.summary}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container-narrow py-16 grid md:grid-cols-2 gap-12">
+    <div>
+      <h2 class="text-2xl font-bold">What we cover</h2>
+      <ul class="mt-5 space-y-3 text-espresso/85">
+        <li><strong>Ceremony</strong> — live music for processional, recessional, and key moments.</li>
+        <li><strong>Cocktail hour</strong> — background sets calibrated to the room.</li>
+        <li><strong>Reception</strong> — the main event. Two lead vocals, full band, deep repertoire.</li>
+        <li><strong>Late-night</strong> — extended sets on request.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold">Service area</h2>
+      <ul class="mt-5 space-y-2 text-espresso/85">
+        {SERVICE_AREAS.map(a => (
+          <li class="flex gap-2">
+            <span class="text-honey">●</span>
+            <span>{a}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-espresso text-cream py-16">
+    <div class="container-narrow">
+      <h2 class="text-2xl md:text-3xl font-bold">Get pricing</h2>
+      <p class="mt-4 text-cream/80 max-w-2xl">
+        Pricing depends on configuration, date, and event scope. Send us a quick note and we'll respond with
+        availability and a quote.
+      </p>
+      <p class="mt-8 text-sm text-cream/70 uppercase tracking-wider font-semibold">Include in your email:</p>
+      <ul class="mt-3 grid sm:grid-cols-2 gap-2 text-cream/85 text-sm max-w-2xl">
+        <li>· Event date (or range)</li>
+        <li>· Venue / location</li>
+        <li>· Configuration</li>
+        <li>· Approximate hours of live music</li>
+        <li>· Anything special — ceremony, requests, surprises</li>
+      </ul>
+      <div class="mt-10">
+        <a href={inquiryHref} class="btn btn-primary">Email {SITE.email}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

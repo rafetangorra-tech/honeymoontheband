@@ -1,0 +1,166 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import MemberCard from '~/components/MemberCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE, SERVICE_AREAS, bookingMailto } from '~/data/site';
+import { SONG_LIST } from '~/data/song-list';
+
+const bios = (await getCollection('bios')).sort((a, b) => a.data.order - b.data.order);
+
+const teasers: Record<string, string> = {
+  'nick-tangorra': 'Long Island pop singer with 28M+ streams.',
+  'alexandra-mendes': '20+ years fronting NY Tristate live shows.',
+  'marc-lambert': 'SUNY Purchase jazz grad; touring guitarist.',
+  'frank-buffolino': 'Decade-plus on the NY/LI event circuit.',
+  'pete-averso': 'Argyle Theatre, 54 Below, Engeman.',
+  'rafe-tangorra': 'EPIC Records; toured with Shawn Mendes & more.',
+};
+
+const previewGenres = SONG_LIST.filter(g =>
+  ['Modern Pop & Dance', 'Motown, Soul & Funk', 'Classic Rock & Anthems'].includes(g.name)
+);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: 'Honeymoon',
+  alternateName: 'Honeymoon the Band',
+  url: SITE.url,
+  image: `${SITE.url}/img/band.jpg`,
+  logo: `${SITE.url}/img/logo.png`,
+  genre: ['Pop', 'Rock', 'Motown', 'Soul', 'Funk', 'Disco'],
+  description: SITE.defaultDescription,
+  email: SITE.email,
+  areaServed: [
+    { '@type': 'City', name: 'New York' },
+    { '@type': 'AdministrativeArea', name: 'Long Island' },
+    { '@type': 'AdministrativeArea', name: 'Westchester County' },
+  ],
+  sameAs: [SITE.socials.instagram, SITE.socials.facebook],
+  member: bios.map(b => ({ '@type': 'Person', name: b.data.name, roleName: b.data.role })),
+};
+---
+
+<BaseLayout
+  title="Honeymoon — Live Wedding & Event Band | NYC, LI, Westchester"
+  description="Honeymoon is a NY Tristate live band built for weddings and private events. High-energy sets, deep song list, professional show."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-espresso text-cream relative overflow-hidden">
+    <img
+      src="/img/band.jpg"
+      alt="Honeymoon the Band"
+      class="absolute inset-0 h-full w-full object-cover opacity-30"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-espresso/70 via-espresso/85 to-espresso"></div>
+    <div class="container-narrow relative py-24 md:py-36 text-center">
+      <p class="eyebrow">Live Wedding & Event Band</p>
+      <h1 class="mt-4 text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05]">
+        Your new<br/>favorite band.
+      </h1>
+      <p class="mt-6 text-cream/80 max-w-xl mx-auto leading-relaxed">
+        A six-piece live show built for weddings and private events across
+        <strong class="text-cream">New York City, Long Island,</strong> and
+        <strong class="text-cream">Westchester</strong>.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a href={bookingMailto()} class="btn btn-primary">Book Honeymoon</a>
+        <a href="/song-list" class="btn btn-ghost">See the song list</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About strip -->
+  <section class="container-narrow py-20 text-center">
+    <p class="eyebrow">Who is Honeymoon</p>
+    <h2 class="mt-3 text-3xl md:text-4xl font-bold">A six-piece built for the dance floor.</h2>
+    <p class="mt-6 max-w-2xl mx-auto leading-relaxed text-espresso/80">
+      Two lead vocalists, a tight rhythm section, and a deep song list — Motown and disco through modern pop, classic rock,
+      and the ballads that make a first dance. Designed to keep the room moving from the first note to the last.
+    </p>
+    <div class="mt-8">
+      <a href="/about" class="text-sm font-semibold uppercase tracking-[0.16em] text-honey hover:underline underline-offset-4">
+        About the band →
+      </a>
+    </div>
+  </section>
+
+  <!-- Hear & see -->
+  <section class="bg-white border-y border-honey/15 py-20">
+    <div class="container-narrow text-center">
+      <p class="eyebrow">Hear &amp; See Honeymoon</p>
+      <h2 class="mt-3 text-3xl md:text-4xl font-bold">Watch us live.</h2>
+      <p class="mt-4 max-w-xl mx-auto text-espresso/80">
+        Most of our current live media lives on Instagram. Follow
+        <a href={SITE.socials.instagram} class="text-honey font-semibold hover:underline underline-offset-4" target="_blank" rel="noopener">
+          {SITE.igHandle}
+        </a>
+        for reels, recent shows, and behind-the-scenes.
+      </p>
+      <div class="mt-8">
+        <a href="/music" class="btn btn-ghost">More media</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Members grid -->
+  <section class="container-narrow py-20">
+    <div class="text-center">
+      <p class="eyebrow">Meet the Band</p>
+      <h2 class="mt-3 text-3xl md:text-4xl font-bold">Six musicians.</h2>
+    </div>
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-3 gap-5">
+      {bios.map(b => (
+        <MemberCard
+          slug={b.data.slug}
+          name={b.data.name}
+          role={b.data.role}
+          teaser={teasers[b.data.slug]}
+        />
+      ))}
+    </div>
+    <div class="mt-12 text-center">
+      <a href="/band" class="btn btn-ghost">Full roster</a>
+    </div>
+  </section>
+
+  <!-- Song list teaser -->
+  <section class="bg-espresso text-cream py-20">
+    <div class="container-narrow">
+      <div class="text-center">
+        <p class="eyebrow">What we play</p>
+        <h2 class="mt-3 text-3xl md:text-4xl font-bold text-cream">From Stevie Wonder to Sabrina Carpenter.</h2>
+      </div>
+      <div class="mt-12 grid md:grid-cols-3 gap-8">
+        {previewGenres.map(g => (
+          <div>
+            <h3 class="text-honey font-bold tracking-tight">{g.name}</h3>
+            <ul class="mt-3 space-y-1 text-sm text-cream/85">
+              {g.songs.slice(0, 5).map(s => <li>{s.title}</li>)}
+              <li class="text-cream/60 italic">+ many more</li>
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div class="mt-12 text-center">
+        <a href="/song-list" class="btn btn-primary">Full song list</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking CTA -->
+  <section class="container-narrow py-24 text-center">
+    <p class="eyebrow">Book Honeymoon</p>
+    <h2 class="mt-3 text-3xl md:text-4xl font-bold">Tell us about your event.</h2>
+    <p class="mt-6 max-w-xl mx-auto text-espresso/80 leading-relaxed">
+      Available across {SERVICE_AREAS.slice(0, 3).join(', ')}. We offer a standard six-piece, an extended lineup with horns, and a band + DJ hybrid.
+    </p>
+    <div class="mt-10">
+      <a href={bookingMailto()} class="btn btn-primary">Email {SITE.email}</a>
+    </div>
+    <p class="mt-4 text-sm text-espresso/60">
+      Or <a href="/booking" class="underline underline-offset-4 decoration-honey hover:text-honey">read booking details</a>.
+    </p>
+  </section>
+</BaseLayout>
