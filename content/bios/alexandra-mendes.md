@@ -2,7 +2,7 @@
 name: Alexandra Mendes
 role: Lead Vocals
 slug: alexandra-mendes
-order: 2
+order: 1
 ---
 
 # Alexandra Mendes — Lead Vocals

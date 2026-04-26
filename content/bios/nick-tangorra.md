@@ -2,7 +2,7 @@
 name: Nick Tangorra
 role: Lead Vocals
 slug: nick-tangorra
-order: 1
+order: 2
 ---
 
 # Nick Tangorra — Lead Vocals
