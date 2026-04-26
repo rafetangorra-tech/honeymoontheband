@@ -24,10 +24,11 @@ const isActive = (href: string) => {
       </span>
     </a>
 
-    <nav aria-label="Primary" class="hidden md:flex items-center gap-7 text-sm font-semibold tracking-wide">
+    <nav aria-label="Primary" class="hidden md:flex items-center gap-6 text-sm font-semibold tracking-wide">
       {NAV.filter(n => n.href !== '/booking').map(item => (
         <a
           href={url(item.href)}
+          aria-current={isActive(item.href) ? 'page' : undefined}
           class:list={[
             'transition-colors hover:text-honey',
             isActive(item.href) ? 'text-honey' : 'text-espresso/80',
@@ -52,6 +53,7 @@ const isActive = (href: string) => {
       {NAV.map(item => (
         <a
           href={url(item.href)}
+          aria-current={isActive(item.href) ? 'page' : undefined}
           class:list={[
             'py-2 transition-colors hover:text-honey',
             isActive(item.href) ? 'text-honey' : 'text-espresso/80',

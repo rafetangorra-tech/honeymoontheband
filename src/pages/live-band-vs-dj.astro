@@ -1,0 +1,148 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { SITE, bookingMailto } from '~/data/site';
+import { url } from '~/lib/url';
+
+const comparison = [
+  {
+    aspect: 'Energy & atmosphere',
+    band: 'A live band creates a moment that feels like a show — eye contact with vocalists, real instruments, dynamics that respond to the room.',
+    dj: 'A great DJ keeps the energy steady and gives you the original recordings of every song.',
+  },
+  {
+    aspect: 'Song variety',
+    band: 'Limited to the band\'s repertoire (ours is 100+ and growing) plus songs we can learn for your event.',
+    dj: 'Effectively unlimited — any song ever recorded, in its original studio version.',
+  },
+  {
+    aspect: 'Cost',
+    band: 'Higher up-front. You\'re paying for six musicians, gear, transportation, and the experience.',
+    dj: 'Generally lower. One person, less gear.',
+  },
+  {
+    aspect: 'Footprint & space',
+    band: 'Needs roughly 20×12 feet of floor or stage space.',
+    dj: 'Needs a small table and a couple of speakers.',
+  },
+  {
+    aspect: 'Memorability',
+    band: 'Guests remember a great band for years — the show is the headline.',
+    dj: 'Guests remember the playlist; the DJ is part of the night, not the centerpiece.',
+  },
+  {
+    aspect: 'Best for',
+    band: 'Couples who want their wedding to feel like an event, not a party with music.',
+    dj: 'Budget-conscious events, very specific must-play playlists, or after-parties.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Live Wedding Band vs. DJ: An Honest Comparison',
+  description: 'A wedding band\'s honest take on when to book a live band, when to book a DJ, and when to combine both.',
+  author: {
+    '@type': 'Organization',
+    name: 'Honeymoon',
+    url: SITE.url,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Honeymoon',
+    url: SITE.url,
+  },
+  datePublished: '2026-04-26',
+};
+---
+
+<BaseLayout
+  title="Live Wedding Band vs. DJ: Honest Comparison | Honeymoon"
+  description="Should you book a live band or a DJ for your wedding? An honest, useful comparison from a working wedding band — including when to consider a band + DJ hybrid."
+  jsonLd={jsonLd}
+>
+  <section class="container-narrow pt-16 pb-10">
+    <p class="eyebrow">Wedding planning</p>
+    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold tracking-tight">Live band vs. DJ for your wedding.</h1>
+    <p class="mt-6 text-lg leading-relaxed text-espresso/85 max-w-2xl">
+      We're a wedding band, so we're biased. We're going to be honest about it anyway, because we'd rather help you
+      pick the right vendor for your event than oversell ours.
+    </p>
+  </section>
+
+  <section class="container-narrow pb-12">
+    <p class="text-espresso/85 leading-relaxed max-w-2xl">
+      The short answer: if you want your wedding to <strong>feel like an event</strong> — something guests talk
+      about for months — book a live band. If you want a tight playlist of original recordings and prefer the
+      production money go elsewhere, book a great DJ. If you want both, book a band + DJ hybrid.
+    </p>
+  </section>
+
+  <section class="bg-white border-y border-honey/15 py-14">
+    <div class="container-narrow">
+      <h2 class="text-2xl md:text-3xl font-bold">Side-by-side comparison</h2>
+      <div class="mt-8 space-y-4">
+        {comparison.map(row => (
+          <div class="grid md:grid-cols-[1fr_2fr_2fr] gap-4 md:gap-8 border border-honey/20 p-5 bg-cream">
+            <div class="font-bold text-espresso uppercase tracking-wider text-xs md:text-sm">
+              {row.aspect}
+            </div>
+            <div>
+              <div class="text-honey text-xs uppercase tracking-wider font-semibold">Live band</div>
+              <div class="mt-1 text-sm text-espresso/85 leading-relaxed">{row.band}</div>
+            </div>
+            <div>
+              <div class="text-espresso/60 text-xs uppercase tracking-wider font-semibold">DJ</div>
+              <div class="mt-1 text-sm text-espresso/85 leading-relaxed">{row.dj}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container-narrow py-14">
+    <h2 class="text-2xl md:text-3xl font-bold">When a live band is the right call</h2>
+    <ul class="mt-5 space-y-3 text-espresso/85 leading-relaxed max-w-2xl">
+      <li class="flex gap-3"><span class="text-honey mt-1">●</span><span>You want your wedding to be an experience, not a soundtrack.</span></li>
+      <li class="flex gap-3"><span class="text-honey mt-1">●</span><span>You and your partner love live music.</span></li>
+      <li class="flex gap-3"><span class="text-honey mt-1">●</span><span>You're hosting older guests who connect with a real performance over a DJ booth.</span></li>
+      <li class="flex gap-3"><span class="text-honey mt-1">●</span><span>You want a full-band rendition of a meaningful first dance song.</span></li>
+      <li class="flex gap-3"><span class="text-honey mt-1">●</span><span>The venue's room is built for live performance — a stage, good acoustics, room to dance.</span></li>
+    </ul>
+
+    <h2 class="mt-12 text-2xl md:text-3xl font-bold">When a DJ is the right call</h2>
+    <ul class="mt-5 space-y-3 text-espresso/85 leading-relaxed max-w-2xl">
+      <li class="flex gap-3"><span class="text-espresso/50 mt-1">●</span><span>Your must-play list is heavy on tracks that lose something in a live cover.</span></li>
+      <li class="flex gap-3"><span class="text-espresso/50 mt-1">●</span><span>You're working with a tight budget and want production money to go elsewhere.</span></li>
+      <li class="flex gap-3"><span class="text-espresso/50 mt-1">●</span><span>The room is too small or too quiet for a full live band.</span></li>
+      <li class="flex gap-3"><span class="text-espresso/50 mt-1">●</span><span>It's a smaller, more intimate event where a band would feel like overkill.</span></li>
+    </ul>
+
+    <h2 class="mt-12 text-2xl md:text-3xl font-bold">When to consider a band + DJ hybrid</h2>
+    <p class="mt-4 text-espresso/85 leading-relaxed max-w-2xl">
+      A hybrid gives you live energy at the moments that matter — first dance, peak dance sets, key entrances —
+      and DJ-driven transitions everywhere else. No awkward gaps between sets, no breaks in momentum, and you get
+      the original recordings of any tracks you specifically need in their studio version.
+    </p>
+    <p class="mt-4 text-espresso/85 leading-relaxed max-w-2xl">
+      We offer this as one of our standard configurations. If you can't decide between band and DJ, this is usually
+      the answer.
+    </p>
+  </section>
+
+  <section class="bg-espresso text-cream py-16">
+    <div class="container-narrow text-center">
+      <h2 class="text-2xl md:text-3xl font-bold">Want to talk through it?</h2>
+      <p class="mt-4 max-w-xl mx-auto text-cream/80">
+        Send us your event date, venue, and what you're trying to figure out. We'll be honest about whether
+        Honeymoon is the right call.
+      </p>
+      <div class="mt-8">
+        <a href={bookingMailto()} class="btn btn-primary">Email {SITE.email}</a>
+      </div>
+      <p class="mt-6 text-sm text-cream/60">
+        See <a href={url('/booking')} class="underline decoration-honey hover:text-honey">our configurations</a> · <a href={url('/song-list')} class="underline decoration-honey hover:text-honey">browse the song list</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
